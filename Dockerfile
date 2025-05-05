@@ -3,8 +3,7 @@ FROM nginx:alpine
 # Remove the default Nginx HTML files
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copy the application code (index.html) to the appropriate directory
-COPY . /usr/share/nginx/html
+# Copy only the index.html file to Nginx html directory
+COPY index.html /usr/share/nginx/html/index.html
 
-# Keep the Nginx server running in the foreground
-CMD ["nginx", "-g", "daemon off;"]
+# No need to add CMD here; it's already handled by the base image
