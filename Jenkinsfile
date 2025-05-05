@@ -1,23 +1,20 @@
 pipeline {
     agent any
     stages {
-        stage('Cloning') {
+        stage('Clone Repository') {
             steps {
-                // Clone the repository from GitHub
-                git branch: 'main', url: 'https://github.com/GujjuChandini/jenkins.git'
+                git 'https://github.com/GujjuChandini/jenkins.git'
             }
         }
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                // Build the Docker image
                 script {
                     sh 'docker build -t my-html-application .'
                 }
             }
         }
-        stage('Deploy') {
+        stage('Run Docker Container') {
             steps {
-                // Run the Docker container on port 8081 for the website
                 script {
                     sh 'docker run -d -p 8081:80 my-html-application'
                 }
@@ -25,11 +22,11 @@ pipeline {
         }
     }
     post {
-        success {
-            echo "Deployment successful!"
-        }
         failure {
-            echo "Deployment failed!"
+            echo 'Deployment failed!'
+        }
+        success {
+            echo 'Deployment successful!'
         }
     }
 }
