@@ -4,7 +4,7 @@ pipeline {
         stage('Cloning') {
             steps {
                 // Clone the repository from GitHub
-                git 'https://github.com/GujjuChandini/jenkins.git'
+                git branch: 'main', url: 'https://github.com/GujjuChandini/jenkins.git'
             }
         }
         stage('Build') {
